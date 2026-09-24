@@ -99,18 +99,6 @@ export const CONTENT_SOURCES: Source[] = [
     accessed: "2026-09-24",
   },
   {
-    id: "unesco-genai-guidance",
-    creator: "UNESCO (Fengchun Miao and Wayne Holmes)",
-    title: "Guidance for Generative AI in Education and Research",
-    container: "UNESCO",
-    year: "2023",
-    url: "https://unesdoc.unesco.org/ark:/48223/pf0000386693",
-    kind: "Report",
-    usedFor: "Responsible, human-centered use of generative AI by students (Lines 2–3).",
-    // The UNESCO site blocked our automated link check — open it in a browser to confirm.
-    status: "verify",
-  },
-  {
     id: "sift-caulfield",
     creator: "Mike Caulfield",
     title: "SIFT (The Four Moves)",
