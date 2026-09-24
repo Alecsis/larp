@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+/*
+ * TOKENLINE DESIGN SYSTEM — tokens
+ * ------------------------------------------------------------
+ * Visual idea: a transit map for learning. Each module is a colored
+ * "line", lessons are "stations", and badges are passport-style "stamps".
+ * The palette is warm paper + deep ink, with one color per line.
+ * Tailwind v4 turns every token below into utilities
+ * (e.g. --color-cobalt → bg-cobalt, text-cobalt, border-cobalt).
+ */
+@theme {
+  /* Neutrals */
+  --color-paper: #f6f4ee;
+  --color-paper-2: #ece8dc;
+  --color-surface: #ffffff;
+  --color-ink: #111a33;
+  --color-ink-2: #3a4360;
+  --color-ink-3: #5a627a;
+  --color-rule: #d8d3c4;
+
+  /* Line colors (base = fills/strokes, -ink = text-safe on light bg, -soft = tints) */
+  --color-cobalt: #2b50d8;
+  --color-cobalt-ink: #2242b3;
+  --color-cobalt-soft: #e2e8ff;
+  --color-tangerine: #f2711c;
+  --color-tangerine-ink: #a3460a;
+  --color-tangerine-soft: #ffe8d4;
+  --color-emerald: #12976e;
+  --color-emerald-ink: #0a6a4d;
+  --color-emerald-soft: #d7f2e6;
+
+  /* Accents */
+  --color-sun: #ffd84d;
+  --color-sun-soft: #fff3c4;
+  --color-danger: #b42318;
+  --color-danger-soft: #fde6e3;
+
+  /* Typography */
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-atkinson), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-atkinson-mono), ui-monospace, "SFMono-Regular", monospace;
+
+  /* Fluid display sizes → text-display-xl / -lg / -md */
+  --text-display-xl: clamp(2.4rem, 1.6rem + 3.6vw, 4.25rem);
+  --text-display-xl--line-height: 1.02;
+  --text-display-lg: clamp(1.9rem, 1.4rem + 2vw, 3rem);
+  --text-display-lg--line-height: 1.08;
+  --text-display-md: clamp(1.4rem, 1.2rem + 0.9vw, 1.9rem);
+  --text-display-md--line-height: 1.15;
+
+  /* "Hard" offset shadow used on interactive, poster-like elements */
+  --shadow-pop: 4px 4px 0 0 var(--color-ink);
+  --shadow-pop-sm: 2px 2px 0 0 var(--color-ink);
+  --shadow-soft: 0 1px 2px rgb(17 26 51 / 0.06), 0 6px 20px -8px rgb(17 26 51 / 0.18);
+
+  /* Animation conventions: short, purposeful, and disabled for reduced motion */
+  --ease-snap: cubic-bezier(0.2, 0.9, 0.3, 1.2);
+  --animate-rise: rise 420ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-pop: pop 520ms var(--ease-snap) both;
+  --animate-shake: shake 360ms ease-in-out;
+  --animate-draw: draw 1400ms cubic-bezier(0.6, 0, 0.2, 1) both;
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pop {
+    0% { opacity: 0; transform: scale(0.6) rotate(-8deg); }
+    70% { opacity: 1; transform: scale(1.06) rotate(2deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0); }
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+  @keyframes draw {
+    from { stroke-dashoffset: var(--dash, 1200); }
+    to { stroke-dashoffset: 0; }
+  }
+}
+
+/* ---------- Base ---------- */
+@layer base {
+  html {
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5.5rem; /* keeps anchored headings clear of the sticky header */
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--color-sun);
+    color: var(--color-ink);
+  }
+
+  /* One consistent, highly visible focus ring for keyboard users */
+  :focus-visible {
+    outline: 3px solid var(--color-cobalt);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  .on-dark :focus-visible {
+    outline-color: var(--color-sun);
+  }
+
+  /* Native <details> marker is replaced by our own chevron */
+  summary {
+    cursor: pointer;
+    list-style: none;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  dialog::backdrop {
+    background: rgb(17 26 51 / 0.55);
+  }
+}
+
+/* ---------- Reusable utilities ---------- */
+@utility graph-paper {
+  background-color: var(--color-paper);
+  background-image:
+    linear-gradient(to right, rgb(17 26 51 / 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(17 26 51 / 0.055) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+@utility highlight {
+  /* A "highlighter pen" underline used on key words in headings */
+  background-image: linear-gradient(transparent 58%, var(--color-sun) 58%, var(--color-sun) 92%, transparent 92%);
+  padding-inline: 0.08em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@utility container-page {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (width >= 40rem) {
+    padding-inline: 1.5rem;
+  }
+  @media (width >= 64rem) {
+    padding-inline: 2rem;
+  }
+}
+
+/* ---------- Reduced motion: turn off non-essential animation ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
