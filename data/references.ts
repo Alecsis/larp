@@ -133,42 +133,7 @@ export const CONTENT_SOURCES: Source[] = [
     usedFor: "Evidence that facial analysis systems performed unequally across skin type and gender (Line 3: Bias).",
     status: "checked",
     accessed: "2026-09-24",
-  },
-  {
-    id: "mla-cite-genai",
-    creator: "MLA Style Center",
-    title: "How do I cite generative AI in MLA style?",
-    container: "Modern Language Association",
-    year: "2023",
-    url: "https://style.mla.org/citing-generative-ai/",
-    kind: "Style guide",
-    usedFor: "How to cite and disclose AI-generated content in MLA style (Line 3: Academic integrity).",
-    status: "checked",
-    accessed: "2026-09-24",
-  },
-  {
-    id: "apa-cite-chatgpt",
-    creator: "Timothy McAdoo",
-    title: "How to cite ChatGPT",
-    container: "APA Style Blog, American Psychological Association",
-    year: "2023",
-    url: "https://apastyle.apa.org/blog/how-to-cite-chatgpt",
-    kind: "Style guide",
-    usedFor: "How to cite AI tools in APA style (Line 3: Academic integrity).",
-    // The page loaded, but its content is rendered by script, so the title could not be auto-confirmed.
-    status: "verify",
-  },
-  {
-    id: "us-copyright-ai",
-    creator: "U.S. Copyright Office",
-    title: "Copyright and Artificial Intelligence",
-    container: "copyright.gov",
-    url: "https://www.copyright.gov/ai/",
-    kind: "Website",
-    usedFor: "Copyright questions about AI training and AI-generated works are still being studied (Line 3).",
-    status: "checked",
-    accessed: "2026-09-24",
-  },
+  }
 ];
 
 export const PROJECT_SOURCES: Source[] = [
